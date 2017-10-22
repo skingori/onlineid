@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="id_card_system@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="id_card_system">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="blog"/>
+    <schema id="4" parent="1" name="dailydaima"/>
+    <schema id="5" parent="1" name="daima"/>
+    <schema id="6" parent="1" name="emp-perf"/>
+    <schema id="7" parent="1" name="encrypt"/>
+    <schema id="8" parent="1" name="farmer"/>
+    <schema id="9" parent="1" name="farmer-cow"/>
+    <schema id="10" parent="1" name="flight"/>
+    <schema id="11" parent="1" name="information_schema"/>
+    <schema id="12" parent="1" name="laravel54"/>
+    <schema id="13" parent="1" name="logs"/>
+    <schema id="14" parent="1" name="mhub"/>
+    <schema id="15" parent="1" name="missing_persons"/>
+    <schema id="16" parent="1" name="mysql"/>
+    <schema id="17" parent="1" name="ndiuni"/>
+    <schema id="18" parent="1" name="notes"/>
+    <schema id="19" parent="1" name="orpm"/>
+    <schema id="20" parent="1" name="performance_schema"/>
+    <schema id="21" parent="1" name="prison"/>
+    <schema id="22" parent="1" name="sacco"/>
+    <schema id="23" parent="1" name="savings"/>
+    <schema id="24" parent="1" name="schoolm"/>
+    <schema id="25" parent="1" name="schools"/>
+    <schema id="26" parent="1" name="sundb"/>
+    <schema id="27" parent="1" name="superm"/>
+    <schema id="28" parent="1" name="taifa_jobs"/>
+    <schema id="29" parent="1" name="tarclink"/>
+    <schema id="30" parent="1" name="tasks"/>
+    <schema id="31" parent="1" name="test"/>
+    <schema id="32" parent="1" name="tevinson"/>
+    <schema id="33" parent="1" name="ticketing"/>
+    <table id="34" parent="2" name="Application_Payment_Table"/>
+    <table id="35" parent="2" name="Application_Table"/>
+    <table id="36" parent="2" name="Login_Table"/>
+    <table id="37" parent="2" name="Notification_Table"/>
+    <table id="38" parent="2" name="Payment_Table"/>
+    <table id="39" parent="2" name="User_Notification_Table"/>
+    <table id="40" parent="2" name="User_Table"/>
+    <column id="41" parent="34" name="Application_Payment_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="42" parent="34" name="Application_Payment_Application_Id">
+      <Position>2</Position>
+      <DataType>int(20)|0</DataType>
+    </column>
+    <column id="43" parent="34" name="Application_Payment_Payment_Id">
+      <Position>3</Position>
+      <DataType>int(20)|0</DataType>
+    </column>
+    <key id="44" parent="34" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Application_Payment_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="45" parent="35" name="Application_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="46" parent="35" name="Application_DateTime">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="47" parent="35" name="Application_Type">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="48" parent="35" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Application_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="49" parent="36" name="Login_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="50" parent="36" name="Login_Username">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="51" parent="36" name="Login_Password">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="52" parent="36" name="Login_Rank">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="53" parent="36" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Login_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="54" parent="37" name="Notification_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="55" parent="37" name="Notification_DateTime">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="56" parent="37" name="Notification_Message">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="57" parent="37" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Notification_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="58" parent="38" name="Payment_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="59" parent="38" name="Payment_Amount">
+      <Position>2</Position>
+      <DataType>int(20)|0</DataType>
+    </column>
+    <column id="60" parent="38" name="Payment_DateTime">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="61" parent="38" name="Payment_Mode">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="62" parent="38" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Payment_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="63" parent="39" name="User_Notification_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="64" parent="39" name="User_Notification_User_Id">
+      <Position>2</Position>
+      <DataType>int(20)|0</DataType>
+    </column>
+    <column id="65" parent="39" name="User_Notification_Notification_Id">
+      <Position>3</Position>
+      <DataType>int(20)|0</DataType>
+    </column>
+    <key id="66" parent="39" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>User_Notification_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="67" parent="40" name="User_Id">
+      <Position>1</Position>
+      <DataType>int(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="68" parent="40" name="User_Name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="69" parent="40" name="User_Contact">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="70" parent="40" name="User_Gender">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="71" parent="40" name="User_DOB">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="72" parent="40" name="User_Photo">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="73" parent="40" name="User_Document_type">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="74" parent="40" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>User_Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
