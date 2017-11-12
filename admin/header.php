@@ -32,7 +32,7 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
 
   <header class="main-header">
@@ -56,12 +56,19 @@
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
+              <?php
+                
+                $result = mysqli_query($con,"SELECT COUNT(Notification_Id) FROM Notification_Table");
+                $row1 = mysqli_fetch_array($result);
+
+                $x = $row1[0];
+               ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">0</span>
+              <span class="label label-success"><?php echo $x;?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 0 messages</li>
+                <li class="header">You have <?php echo $x;?> messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
@@ -69,7 +76,7 @@
                  
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="notifications.php">See All Messages</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -80,7 +87,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo 'Username' ;?></span>
+              <span class="hidden-xs"><?php echo $username;  ;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -88,7 +95,7 @@
                 <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo 'Username' ;?> - admin
+                  <?php echo $username;  ;?> - admin
                   <small><?php echo date('D.M.Y'); ?></small>
                 </p>
               </li>
@@ -130,70 +137,71 @@
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p><?php echo 'Username' ;?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
+      <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+              <div class="pull-left image">
+                  <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              </div>
+              <div class="pull-left info">
+                  <p><?php echo $username;  ;?></p>
+                  <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              </div>
+          </div>
+          <!-- search form -->
+          <form action="#" method="get" class="sidebar-form">
+              <div class="input-group">
+                  <input type="text" name="q" class="form-control" placeholder="Search...">
+                  <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                   <i class="fa fa-search"></i>
                 </button>
               </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">FAVOURITES</li>
+              </div>
+          </form>
+          <!-- /.search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu" data-widget="tree">
+              <li class="header">FAVOURITES</li>
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-plus"></i>
-            <span>New Entry</span>
-            <span class="pull-right-container">
+              <li class="treeview">
+                  <a href="#">
+                      <i class="fa fa-plus"></i>
+                      <span>New Entry</span>
+                      <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> User</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-        <a href="#">
-            <i class="fa fa-file-pdf-o"></i>
-            <span>All Reports</span>
-            <span class="pull-right-container">
+                  </a>
+                  <ul class="treeview-menu">
+                      <li><a href="off_new.php"><i class="fa fa-user-circle"></i> Officer</a></li>
+                  </ul>
+              </li>
+              <li class="treeview">
+                  <a href="#">
+                      <i class="fa fa-file-pdf-o"></i>
+                      <span>All Reports</span>
+                      <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
-        </a>
-            <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Officers</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Users</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Applications</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Payments</span></a></li>
-            </ul>
-        </li>
+                  </a>
+                <ul class="treeview-menu">
+                <li><a href="users.php"><i class="fa fa-paperclip"></i> <span>All Users</span></a></li>
+                <li><a href="applications.php"><i class="fa fa-paperclip"></i> <span>New Applications</span></a></li>
+                <li><a href="notifications.php"><i class="fa fa-paperclip"></i> <span>Notifications</span></a></li>
+                <li><a href="payments.php"><i class="fa fa-paperclip"></i> <span>Payments</span></a></li>
+                <li><a href="approved.php"><i class="fa fa-paperclip"></i> <span>Approved Applications</span></a></li>
+                </ul>
+              </li>
 
-        <li><a href=""><i class="fa fa-question"></i> <span>Get Help</span></a></li>
-        <li class="header">SETTINGS</li>
-        <li><a href="#"><i class="fa fa-cogs"></i> <span>Preference</span></a></li>
-        <li><a href=""><i class="fa fa-question-circle"></i> <span>FAQ'S</span></a></li>
-        <li class="header">MORE</li>
-        <li><a href="../logout.php?logout"><i class="fa fa-lock"></i> <span>Logout</span></a></li>
-      </ul>
+              <li><a href=""><i class="fa fa-question"></i> <span>Get Help</span></a></li>
+              <li class="header">SETTINGS</li>
+              <li><a href="#"><i class="fa fa-cogs"></i> <span>Preference</span></a></li>
+              <li><a href=""><i class="fa fa-question-circle"></i> <span>FAQ'S</span></a></li>
+              <li class="header">MORE</li>
+              <li><a href="../logout.php?logout"><i class="fa fa-lock"></i> <span>Logout</span></a></li>
+          </ul>
 
-    </section>
+      </section>
 
     <!-- /.sidebar -->
   </aside>
@@ -203,7 +211,10 @@
     <section class="content-header">
       <h1>
 
-        <small>Built 1.0</small>
+          <small>
+              <button class="btn btn-default" onclick="printData()" name="btnPrint" id="btnPrint"><i class="fa fa-file-pdf-o"></i> </button>
+          <button class="btn btn-default" onclick="printData()"><i class="fa fa-print"></i> </button>
+          </small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

@@ -74,7 +74,7 @@ while($res = mysqli_fetch_array($result1))
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
 
   <header class="main-header">
@@ -98,12 +98,19 @@ while($res = mysqli_fetch_array($result1))
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
+              <?php
+                
+                $result = mysqli_query($con,"SELECT COUNT(Notification_Id) FROM Notification_Table");
+                $row1 = mysqli_fetch_array($result);
+
+                $x = $row1[0];
+               ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">0</span>
+              <span class="label label-success"><?php echo $x;?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 0 messages</li>
+              <li class="header">You have <?php echo $x;?> messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
@@ -111,7 +118,7 @@ while($res = mysqli_fetch_array($result1))
                  
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="notifications.php">See All Messages</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -122,7 +129,7 @@ while($res = mysqli_fetch_array($result1))
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo 'Username' ;?></span>
+              <span class="hidden-xs"><?php echo $username;  ;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -130,7 +137,7 @@ while($res = mysqli_fetch_array($result1))
                 <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo 'Username' ;?> - admin
+                  <?php echo $username;  ;?> - admin
                   <small><?php echo date('D.M.Y'); ?></small>
                 </p>
               </li>
@@ -179,7 +186,7 @@ while($res = mysqli_fetch_array($result1))
           <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo 'Username' ;?></p>
+          <p><?php echo $username;  ;?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -208,7 +215,7 @@ while($res = mysqli_fetch_array($result1))
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> User</a></li>
+            <li><a href="off_new.php"><i class="fa fa-user-circle"></i> Officer</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -220,10 +227,11 @@ while($res = mysqli_fetch_array($result1))
         </span>
         </a>
             <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Officers</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Users</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Applications</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Payments</span></a></li>
+            <li><a href="users.php"><i class="fa fa-paperclip"></i> <span>All Users</span></a></li>
+            <li><a href="applications.php"><i class="fa fa-paperclip"></i> <span>New Applications</span></a></li>
+            <li><a href="notifications.php"><i class="fa fa-paperclip"></i> <span>Notifications</span></a></li>
+            <li><a href="payments.php"><i class="fa fa-paperclip"></i> <span>Payments</span></a></li>
+            <li><a href="approved.php"><i class="fa fa-paperclip"></i> <span>Approved Applications</span></a></li>
             </ul>
         </li>
 
@@ -254,70 +262,100 @@ while($res = mysqli_fetch_array($result1))
     </section>
 
     <!-- Main content -->
-    <section class="content">
-      <!-- Info boxes -->
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-android-car"></i></span>
+        <!-- ADD CONTENT HERE -->
+        <section class="content">
+            <div class="box">
 
-            <div class="info-box-content">
-              <span class="info-box-text">Officers</span>
-              <span class="info-box-number"><a href="officers.php"><h6>2 officers online</h6></a> </span>
+                <?php
+                if (isset($msg)) {
+                    echo $msg;
+                }
+                ?>
+                <!-- ADD CONTENT HERE -->
+                <ul id="registration-step">
+                    <li id="account" class="highlight">Application</li>
+                    <li id="password">Payment</li>
+                    <li id="general">Confirm</li>
+                </ul>
+                <form name="frmRegistration" id="registration-form" method="POST">
+                    <div id="account-field">
+
+                        <div class="form-group" hidden="">
+                            <label for="Application_Id">Application ID</label>
+                            <input type="text" class="form-control" placeholder="" readonly value="<?php echo $id;?>" name="Application_Id" id="Application_Id">
+                        </div>
+                        <!--<div class="form-group" hidden="">
+                            <label for="Application_DateTime">Date/Time</label>
+                            <input type="text" readonly="" class="form-control" name="Application_DateTime" value="<?php echo date('l jS \of F Y h:i:s A'); ?>" id="Application_DateTime" required>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label for="Application_Type">Application type:</label>
+                            <select class="form-control" name="Application_Type" id="Application_Type">
+                                <option value="NORMAL"> Normal </option>
+                                <option value="RE-APPLICATION"> Re-Application </option>
+                            </select>
+                        </div>
+                        <div>
+                            <small><p style="color:red">Note:</p> This account is for Kenyan citizens only. Your birth certificate number will be used.Select normal if you have never applied for the ID before.
+                                <br>For those with lost or destroyed ID,select Re-Application(No charges).<p></p></small>
+                        </div>
+                    </div>
+                    <div id="password-field" style="display:none;">
+
+                        <div class="form-group">
+                            <label for="Payment_Id">Confirmation Code:</label>
+                            <input type="text" class="form-control" name="Payment_Id" placeholder="e.g. XiUGGH9977VC" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="Payment_Amount">Amount in numbers:</label>
+                            <input type="text" class="form-control" name="Payment_Amount" placeholder="e.g. 70000" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="Payment_Mode">Application type:</label>
+                            <select class="form-control" name="Payment_Mode" id="Payment_Mode">
+                                <option value="MPESA"> M-PESA </option>
+                                <option value="AIRTEL-MONEY"> AIRTEL-MONEY </option>
+                                <option value="BANK"> BANK </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div id="general-field" style="display:none;" class="form-group">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox" required> I agree to the <a href="#">terms</a>
+                                </label>
+
+                                <button type="submit" name="app" class="btn btn-warning">Complete</button>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+                        <input class="btn btn-primary" type="button" name="back" id="back" value="Back" style="display:none;">
+                        <input class="btn btn-primary" type="button" name="next" id="next" value="Next">
+                        <!--<input class="btn btn-default" type="submit" name="finish" id="finish" value="Finish" style="display:none;">-->
+                    </div>
+
+                </form>
+                <style>
+                    #registration-step{margin:0;padding:0;}
+                    #registration-step li{list-style:none; float:left;padding:5px 10px;border-top:#EEE 1px solid;border-left:#EEE 1px solid;border-right:#EEE 1px solid;}
+                    #registration-step li.highlight{background-color:#418EBA;}
+                    #registration-form{clear:both;border:1px #EEE solid;padding:20px;}
+                    .demoInputBox{padding: 10px;border: #F0F0F0 1px solid;border-radius: 4px;background-color: #FFF;width: auto;}
+                    .registration-error{color:#FF0000; padding-left:15px;}
+                    .message {color: #00FF00;font-weight: bold;width: 100%;padding: 10px;}
+                    .btnAction{padding: 5px 10px;background-color: #09F;border: 0;color: #FFF;cursor: pointer; margin-top:15px;}
+                </style>
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">users</span>
-              <span class="info-box-number"><a href="users.php"><h6>2 users online</h6></a></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-minus"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Applications</span>
-              <span class="info-box-number"><a href="applications.php"><h6>2 Applications</h6></a></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-paper-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Reports</span>
-              <span class="info-box-number"><a href="payments.php"><h6>Get all reports</h6></a></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-       <!-- ADD CONTENT HERE -->
-
-
+            <!--END ADD CONTENT HERE -->
         <!--END ADD CONTENT HERE -->
       <!-- /.row -->
     </section>

@@ -29,5 +29,15 @@ else
     header('Location:index.php');
 }
 
+include '../connection/db.php';
+$username=$_SESSION['logname'];
 
+$result1 = mysqli_query($con, "SELECT * FROM Login_Table WHERE Login_Username='$username'");
+
+while($res = mysqli_fetch_array($result1))
+{
+    $username= $res['Login_Username'];
+    $id= $res['Login_Id'];
+
+}
 ?>

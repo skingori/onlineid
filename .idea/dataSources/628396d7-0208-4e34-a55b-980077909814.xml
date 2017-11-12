@@ -46,9 +46,9 @@
     <table id="40" parent="2" name="User_Table"/>
     <column id="41" parent="34" name="Application_Payment_Id">
       <Position>1</Position>
-      <DataType>int(20)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="42" parent="34" name="Application_Payment_Application_Id">
       <Position>2</Position>
@@ -56,150 +56,207 @@
     </column>
     <column id="43" parent="34" name="Application_Payment_Payment_Id">
       <Position>3</Position>
-      <DataType>int(20)|0</DataType>
+      <DataType>varchar(20)|0</DataType>
     </column>
-    <key id="44" parent="34" name="PRIMARY">
+    <column id="44" parent="34" name="Application_Payment_Payment_Code">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="45" parent="34" name="Application_Payment_Application_Id">
+      <ColNames>Application_Payment_Application_Id</ColNames>
+    </index>
+    <index id="46" parent="34" name="Application_payment_Payment_Code">
+      <ColNames>Application_Payment_Payment_Code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="47" parent="34" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Application_Payment_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="45" parent="35" name="Application_Id">
+    <key id="48" parent="34" name="Application_payment_Payment_Code">
+      <ColNames>Application_Payment_Payment_Code</ColNames>
+      <UnderlyingIndexName>Application_payment_Payment_Code</UnderlyingIndexName>
+    </key>
+    <foreign-key id="49" parent="34" name="application_payment_table_ibfk_2">
+      <ColNames>Application_Payment_Application_Id</ColNames>
+      <RefSchemaName>id_card_system</RefSchemaName>
+      <RefTableName>Application_Table</RefTableName>
+      <RefColNames>Application_Id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="50" parent="34" name="application_payment_table_ibfk_1">
+      <ColNames>Application_Payment_Payment_Code</ColNames>
+      <RefSchemaName>id_card_system</RefSchemaName>
+      <RefTableName>Payment_Table</RefTableName>
+      <RefColNames>Payment_code</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="51" parent="35" name="Application_Id">
       <Position>1</Position>
       <DataType>int(20)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="46" parent="35" name="Application_DateTime">
+    <column id="52" parent="35" name="Application_DateTime">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="47" parent="35" name="Application_Type">
+    <column id="53" parent="35" name="Application_Type">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="48" parent="35" name="PRIMARY">
+    <key id="54" parent="35" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Application_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="49" parent="36" name="Login_Id">
+    <column id="55" parent="36" name="Login_Id">
       <Position>1</Position>
       <DataType>int(20)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="50" parent="36" name="Login_Username">
+    <column id="56" parent="36" name="Login_Username">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="51" parent="36" name="Login_Password">
+    <column id="57" parent="36" name="Login_Password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="52" parent="36" name="Login_Rank">
+    <column id="58" parent="36" name="Login_Rank">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="53" parent="36" name="PRIMARY">
+    <key id="59" parent="36" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Login_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="54" parent="37" name="Notification_Id">
+    <column id="60" parent="37" name="Notification_Id">
       <Position>1</Position>
-      <DataType>int(20)|0</DataType>
+      <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="55" parent="37" name="Notification_DateTime">
+    <column id="61" parent="37" name="Notification_DateTime">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="56" parent="37" name="Notification_Message">
+    <column id="62" parent="37" name="Notification_Message">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="57" parent="37" name="PRIMARY">
+    <key id="63" parent="37" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Notification_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="58" parent="38" name="Payment_Id">
+    <column id="64" parent="38" name="Payment_code">
       <Position>1</Position>
-      <DataType>int(20)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="59" parent="38" name="Payment_Amount">
+    <column id="65" parent="38" name="Payment_Id">
       <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="38" name="Payment_Amount">
+      <Position>3</Position>
       <DataType>int(20)|0</DataType>
     </column>
-    <column id="60" parent="38" name="Payment_DateTime">
-      <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
-    </column>
-    <column id="61" parent="38" name="Payment_Mode">
+    <column id="67" parent="38" name="Payment_DateTime">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <key id="62" parent="38" name="PRIMARY">
+    <column id="68" parent="38" name="Payment_Mode">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="69" parent="38" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>Payment_Id</ColNames>
+      <ColNames>Payment_code</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="63" parent="39" name="User_Notification_Id">
+    <column id="70" parent="39" name="User_Notification_Id">
       <Position>1</Position>
       <DataType>int(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="64" parent="39" name="User_Notification_User_Id">
+    <column id="71" parent="39" name="User_Notification_User_Id">
       <Position>2</Position>
       <DataType>int(20)|0</DataType>
     </column>
-    <column id="65" parent="39" name="User_Notification_Notification_Id">
+    <column id="72" parent="39" name="User_Notification_Notification_Id">
       <Position>3</Position>
-      <DataType>int(20)|0</DataType>
+      <DataType>bigint(20)|0</DataType>
     </column>
-    <key id="66" parent="39" name="PRIMARY">
+    <index id="73" parent="39" name="User_Notification_Notification_Id">
+      <ColNames>User_Notification_Notification_Id</ColNames>
+    </index>
+    <key id="74" parent="39" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>User_Notification_Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="67" parent="40" name="User_Id">
+    <foreign-key id="75" parent="39" name="user_notification_table_ibfk_1">
+      <ColNames>User_Notification_Notification_Id</ColNames>
+      <RefSchemaName>id_card_system</RefSchemaName>
+      <RefTableName>Notification_Table</RefTableName>
+      <RefColNames>Notification_Id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="76" parent="40" name="User_Id">
       <Position>1</Position>
       <DataType>int(20)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="68" parent="40" name="User_Name">
+    <column id="77" parent="40" name="User_Name">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="69" parent="40" name="User_Contact">
+    <column id="78" parent="40" name="User_Contact">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="70" parent="40" name="User_Gender">
+    <column id="79" parent="40" name="User_Gender">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="71" parent="40" name="User_DOB">
+    <column id="80" parent="40" name="User_DOB">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="72" parent="40" name="User_Photo">
+    <column id="81" parent="40" name="User_Photo">
       <Position>6</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>longtext|0</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="73" parent="40" name="User_Document_type">
+    <column id="82" parent="40" name="User_Document_type">
       <Position>7</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="74" parent="40" name="PRIMARY">
+    <key id="83" parent="40" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>User_Id</ColNames>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="84" parent="40" name="user_table_ibfk_1">
+      <ColNames>User_Id</ColNames>
+      <RefSchemaName>id_card_system</RefSchemaName>
+      <RefTableName>Login_Table</RefTableName>
+      <RefColNames>Login_Id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
   </database-model>
 </dataSource>

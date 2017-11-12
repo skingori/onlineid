@@ -7,7 +7,7 @@
  */
 
 include_once ('control.php');
-require('connection/db.php');
+require('../connection/db.php');
 
 if(isset($_POST['reg'])) {
 

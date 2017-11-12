@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +31,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
 
     <header class="main-header">
@@ -56,29 +55,31 @@
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
                     <li class="dropdown messages-menu">
+                        <?php
+
+                        $result = mysqli_query($con,"SELECT COUNT(User_Notification_Id) FROM User_Notification_Table WHERE User_Notification_User_Id='$id'");
+                        $row1 = mysqli_fetch_array($result);
+
+                        $x = $row1[0];
+                        ?>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <span class="label label-success"><?php echo $x;?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
+                            <li class="header">You have <?php echo $x;?> message(s)</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
                                     <!-- end message -->
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Developers
-                                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
+                                    <?php
+                                    $result = mysqli_query($con, "SELECT * FROM User_Notification_Table WHERE User_Notification_User_Id='$id' ORDER BY User_Notification_Id DESC ");
+                                    //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array
+                                    while($res = mysqli_fetch_array($result)) {
 
+                                        echo "<li> <a href='messages.php?mesid=".$res['User_Notification_Notification_Id']."'> ".$res['User_Notification_Notification_Id']."</a></li>";
+                                    }
+                                    ?>
 
                                 </ul>
                             </li>
@@ -86,42 +87,37 @@
                         </ul>
                     </li>
                     <!-- Notifications: style can be found in dropdown.less -->
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
+                    
                     <!-- Tasks: style can be found in dropdown.less -->
 
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                           <?php
+                           $result = mysqli_query($con, "SELECT User_Photo FROM User_Table WHERE User_Id=$id ORDER BY User_Id ASC");
+                                   //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array
+                               while($res = mysqli_fetch_array($result)) {
+
+                                  echo "<img class='user-image' src=".$res['User_Photo'].">";
+                               }
+                             ?>
                             <span class="hidden-xs"><?php echo $username ;?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <?php
+                                $result = mysqli_query($con, "SELECT User_Photo FROM User_Table WHERE User_Id=$id ORDER BY User_Id ASC");
+                                   //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array
+                                   while($res = mysqli_fetch_array($result)) {
+
+                                      echo "<img class='img-circle' src=".$res['User_Photo'].">";
+                                   }
+                                 ?>
 
                                 <p>
-                                    <?php echo $username ;?> - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                    <?php echo $username ;?> - Welcome
+                                    <small><?php echo date("D.M.Y"); ?></small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -166,7 +162,14 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <?php
+                           $result = mysqli_query($con, "SELECT User_Photo FROM User_Table WHERE User_Id=$id ORDER BY User_Id ASC");
+                                   //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array
+                               while($res = mysqli_fetch_array($result)) {
+
+                                  echo "<img class='user-image' src=".$res['User_Photo'].">";
+                               }
+                             ?>
                 </div>
                 <div class="pull-left info">
                     <p><?php echo $username ;?></p>
@@ -198,31 +201,30 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                        <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                        <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                        <li><a href="index.php"><i class="fa fa-pencil-square"></i> New ID</a></li>
+                        
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-file-pdf-o"></i>
-                        <span>All Reports</span>
+                        <span>My Reports</span>
                         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                        <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                        <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                        <li><a href="payments.php"><i class="fa fa-paper-plane"></i> Receipt</a></li>
+                        <li><a href="applications.php"><i class="fa fa-envelope-open"></i> Application</a></li>
                     </ul>
                 </li>
 
-                <li><a href=""><i class="fa fa-question"></i> <span>Get Help</span></a></li>
                 <li class="header">TAGS</li>
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                <li><a href="#"><i class="fa fa-question-circle-o"></i> <span>FAQ'S</span></a></li>
+                <li><a href=""><i class="fa fa-question"></i> <span>Get Help</span></a></li>
+                
+                <li class="header">ABOUT</li>
+                <li><a href="#"><i class="fa fa-warning"></i> <span>Our terms and conditions</span></a></li>
             </ul>
 
         </section>

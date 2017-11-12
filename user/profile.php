@@ -123,7 +123,7 @@ include'header.php';?>
                         <label for="bday" class="col-sm-2 control-label">Birth Date</label>
 
                         <div class="col-sm-10">
-                        <input type="date" name="User_DOB" required id="bday" onchange="checkAge(this.value);" class="form-control" placeholder="Date of birth">
+                        <input type="text" name="User_DOB" required id="datepicker" onchange="checkAge(this.value);" class="form-control" placeholder="Date of birth">
                         </div>
                     </div>
                     <div class="form-group">

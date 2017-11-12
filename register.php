@@ -171,6 +171,12 @@ if(isset($_POST['reg'])) {
 </script>
 
 <script>
+    $( function() {
+        $( "#datepicker" ).datepicker();
+    } );
+</script>
+
+<script>
     document.addEventListener("DOMContentLoaded", function() {
 
         // JavaScript form validation

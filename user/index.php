@@ -53,7 +53,14 @@ if ($count==0) {
 null;
 
 }
+//AUTO GENERATE NUMBER
 
+$chars = array(0,1,2,3,4,5,6,7,8,9);
+$serial = '';
+$max = count($chars)-1;
+for($i=0;$i<10;$i++){
+    $serial .= (!($i % 5) && $i ? '' : '').$chars[rand(0, $max)];
+}
 
 //INSERT DATA ON DB
 if(isset($_POST['app'])) {
@@ -66,10 +73,10 @@ if(isset($_POST['app'])) {
     
     $sql = "INSERT INTO Application_Table(Application_Id, Application_DateTime, Application_Type)
 VALUES ('$id', NOW(), '$Application_Type_');";
-    $sql .= "INSERT INTO Payment_Table(Payment_Id,Payment_Amount ,Payment_DateTime ,Payment_Mode)
-VALUES ('$Payment_Id_', '$Payment_Amount_', NOW(),'$Payment_Mode_');";
-    $sql .= "INSERT INTO Application_Payment_Table(Application_Payment_Application_Id,Application_Payment_Payment_Id)
-VALUES ('$id', '$Payment_Id_')";
+    $sql .= "INSERT INTO Payment_Table(Payment_Id,Payment_Amount ,Payment_DateTime ,Payment_Mode,Payment_code)
+VALUES ('$Payment_Id_', '$Payment_Amount_', NOW(),'$Payment_Mode_','$serial');";
+    $sql .= "INSERT INTO Application_Payment_Table(Application_Payment_Application_Id,Application_Payment_Payment_Id,Application_Payment_Payment_Code)
+VALUES ('$id', '$Payment_Id_','$serial')";
 
     if ($con->multi_query($sql) === TRUE) {
         
@@ -128,7 +135,7 @@ VALUES ('$id', '$Payment_Id_')";
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
 
     <header class="main-header">
@@ -152,20 +159,32 @@ VALUES ('$id', '$Payment_Id_')";
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
                     <li class="dropdown messages-menu">
+                        <?php
+
+                            $result = mysqli_query($con,"SELECT COUNT(User_Notification_Id) FROM User_Notification_Table WHERE User_Notification_User_Id='$id'");
+                            $row1 = mysqli_fetch_array($result);
+
+                            $x = $row1[0];
+                           ?>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">0</span>
+                            <span class="label label-success"><?php echo $x;?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 0 messages</li>
+                            <li class="header">You have <?php echo $x;?> message(s)</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
-                                    <!-- end message -->
-                                    <li>
-                                        
-                                    </li>
 
+                                    <!-- end message -->
+                                    <?php
+                                    $result = mysqli_query($con, "SELECT * FROM User_Notification_Table WHERE User_Notification_User_Id='$id' ORDER BY User_Notification_Id DESC ");
+                                    //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array
+                                    while($res = mysqli_fetch_array($result)) {
+
+                                        echo "<li class=''><a href='messages.php?mesid=".$res['User_Notification_Notification_Id']."'> ".$res['User_Notification_Notification_Id']."</a></li>";
+                                    }
+                                    ?>
 
                                 </ul>
                             </li>
@@ -224,7 +243,7 @@ VALUES ('$id', '$Payment_Id_')";
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="pro_edit.php" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="../logout.php?logout" class="btn btn-default btn-flat">Sign out</a>
@@ -300,8 +319,8 @@ VALUES ('$id', '$Payment_Id_')";
         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/UI/general.html"><i class="fa fa-paper-plane"></i> Receipt</a></li>
-                        <li><a href="pages/UI/icons.html"><i class="fa fa-envelope-open"></i> Application</a></li>
+                        <li><a href="payments.php"><i class="fa fa-paper-plane"></i> Receipt</a></li>
+                        <li><a href="applications.php"><i class="fa fa-envelope-open"></i> Application</a></li>
                     </ul>
                 </li>
 
