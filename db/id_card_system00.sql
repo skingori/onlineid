@@ -3,34 +3,23 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 23, 2017 at 12:20 PM
+-- Generation Time: Nov 23, 2017 at 02:43 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `id_card_system`
 --
-CREATE DATABASE IF NOT EXISTS `id_card_system` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `id_card_system`;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `Application_Payment_Table`
 --
--- Creation: Nov 12, 2017 at 06:47 PM
---
 
-DROP TABLE IF EXISTS `Application_Payment_Table`;
 CREATE TABLE `Application_Payment_Table` (
   `Application_Payment_Id` int(11) NOT NULL,
   `Application_Payment_Application_Id` int(20) DEFAULT NULL,
@@ -50,10 +39,7 @@ INSERT INTO `Application_Payment_Table` (`Application_Payment_Id`, `Application_
 --
 -- Table structure for table `Application_Table`
 --
--- Creation: Nov 12, 2017 at 06:42 PM
---
 
-DROP TABLE IF EXISTS `Application_Table`;
 CREATE TABLE `Application_Table` (
   `Application_Id` int(20) NOT NULL,
   `Application_DateTime` varchar(255) DEFAULT NULL,
@@ -74,10 +60,7 @@ INSERT INTO `Application_Table` (`Application_Id`, `Application_DateTime`, `Appl
 --
 -- Table structure for table `Login_Table`
 --
--- Creation: Nov 19, 2017 at 10:26 PM
---
 
-DROP TABLE IF EXISTS `Login_Table`;
 CREATE TABLE `Login_Table` (
   `Login_Id` int(20) NOT NULL DEFAULT '0',
   `Login_Username` varchar(255) DEFAULT NULL,
@@ -106,10 +89,7 @@ INSERT INTO `Login_Table` (`Login_Id`, `Login_Username`, `Login_Password`, `Logi
 --
 -- Table structure for table `Notification_Table`
 --
--- Creation: Nov 12, 2017 at 02:10 PM
---
 
-DROP TABLE IF EXISTS `Notification_Table`;
 CREATE TABLE `Notification_Table` (
   `Notification_Id` bigint(20) NOT NULL,
   `Notification_DateTime` varchar(255) DEFAULT NULL,
@@ -130,10 +110,7 @@ INSERT INTO `Notification_Table` (`Notification_Id`, `Notification_DateTime`, `N
 --
 -- Table structure for table `Payment_Table`
 --
--- Creation: Nov 12, 2017 at 06:46 PM
---
 
-DROP TABLE IF EXISTS `Payment_Table`;
 CREATE TABLE `Payment_Table` (
   `Payment_code` int(11) NOT NULL,
   `Payment_Id` varchar(20) NOT NULL,
@@ -154,10 +131,7 @@ INSERT INTO `Payment_Table` (`Payment_code`, `Payment_Id`, `Payment_Amount`, `Pa
 --
 -- Table structure for table `User_Notification_Table`
 --
--- Creation: Nov 12, 2017 at 02:14 PM
---
 
-DROP TABLE IF EXISTS `User_Notification_Table`;
 CREATE TABLE `User_Notification_Table` (
   `User_Notification_Id` int(20) NOT NULL,
   `User_Notification_User_Id` int(20) DEFAULT NULL,
@@ -177,10 +151,7 @@ INSERT INTO `User_Notification_Table` (`User_Notification_Id`, `User_Notificatio
 --
 -- Table structure for table `User_Table`
 --
--- Creation: Nov 12, 2017 at 01:52 PM
---
 
-DROP TABLE IF EXISTS `User_Table`;
 CREATE TABLE `User_Table` (
   `User_Id` int(20) NOT NULL DEFAULT '0',
   `User_Name` varchar(255) DEFAULT NULL,
@@ -289,7 +260,3 @@ ALTER TABLE `User_Notification_Table`
 --
 ALTER TABLE `User_Table`
   ADD CONSTRAINT `user_table_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `Login_Table` (`Login_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
